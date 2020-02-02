@@ -8,7 +8,7 @@ public class SortTest {
     ma1.mergeSort();
     System.out.println(ma1); //This should print the sorted array
     MyArray ma2= new MyArray(copyArray(array));
-    ma2.quicksort();
+    ma2.quicksort(true);// takes in a parameter for randomization
     System.out.println(ma2); //This should print the sorted array
     System.out.println(ma2.findK(2,ma.a,0,ma.a.length-1));
     
