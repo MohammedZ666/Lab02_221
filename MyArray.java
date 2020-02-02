@@ -1,3 +1,7 @@
+
+import java.util.Random;
+
+
 public class MyArray {
      
      
@@ -41,9 +45,9 @@ public class MyArray {
          
      }
      
-     public void quicksort(){
+     public void quicksort(boolean isRandomized){
          
-         quicksort(a,0,a.length-1);
+         quicksort(a,0,a.length-1,isRandomized);
      }
      
      
@@ -72,24 +76,65 @@ public class MyArray {
      
   
   
-    public void quicksort(int[] arr,int l, int h) 
+    public void quicksort(int[] arr,int l, int h, boolean isRandomized) 
     { 
         if (l < h) 
         { 
             
-            int p = partition(arr, l, h); 
+            int p = partition(arr, l, h, isRandomized); 
   
             
-            quicksort(arr, l, p-1); 
-            quicksort(arr, p+1, h); 
+            quicksort(arr, l, p-1,isRandomized); 
+            quicksort(arr, p+1, h, isRandomized); 
         } 
     } 
- 
-  public int partition(int arr[], int low, int high) 
+
+    
+    
+    
+    public int findK(int nth, int[] arr,int l, int h) 
     { 
-        int pivot = arr[high];  
-        int i = (low-1);  
-        for (int j=low; j<high; j++) 
+        if (l < h) 
+        { 
+            
+            int p = partition(arr, l, h,false); 
+            
+            if(p+1<nth) {
+                
+                return findK(nth,arr, p+1, h);
+         
+            }
+          
+            else if(p+1>nth){ 
+             
+                return findK(nth,arr, l, p-1);
+                
+            }
+         
+            else return arr[p];
+        } 
+    
+        return -1;
+    } 
+  
+    
+    
+    public int partition(int arr[], int low, int high, boolean isRandomized) 
+    { 
+       if(isRandomized){
+       
+           
+           int rand = new Random().nextInt(high-low) + low;
+           int temp = arr[high];
+           arr[high] = arr[rand];
+           arr[rand] = temp; 
+       } 
+       
+       
+       
+       int pivot = arr[high];
+       int i = (low-1);
+       for (int j=low; j<high; j++) 
         { 
             if (arr[j] < pivot) 
             { 
